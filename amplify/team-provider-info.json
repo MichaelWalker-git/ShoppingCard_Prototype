@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-docusign-dev-73246-authRole",
+      "UnauthRoleArn": "arn:aws:iam::039885961427:role/amplify-docusign-dev-73246-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::039885961427:role/amplify-docusign-dev-73246-authRole",
+      "Region": "eu-west-1",
+      "DeploymentBucketName": "amplify-docusign-dev-73246-deployment",
+      "UnauthRoleName": "amplify-docusign-dev-73246-unauthRole",
+      "StackName": "amplify-docusign-dev-73246",
+      "StackId": "arn:aws:cloudformation:eu-west-1:039885961427:stack/amplify-docusign-dev-73246/7990a180-149f-11ec-ba68-0af6b3076375",
+      "AmplifyAppId": "d2reekcdlsvo0q"
+    }
+  }
+}
