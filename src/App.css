@@ -64,3 +64,13 @@
 .checkoutSideBarTitle {
   background: #61dafb;
 }
+
+.sideBarColumnHeaders {
+  display: flex;
+  justify-content: space-between;
+}
+
+.underline {
+  text-decoration: underline;
+
+}

@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import {convertToReadableDollars} from "../utilities";
 
 export const CheckoutSideBar = ({cart}) => {
 	const [checkoutItems, changeCheckoutItems] = useState([]);
@@ -33,21 +34,27 @@ export const CheckoutSideBar = ({cart}) => {
 			<div className={"checkoutSideBarTitle"}>
 				<h1>Checkout</h1>
 			</div>
+			<div  className={"sideBarColumnHeaders underline"}>
+				<div>
+					<div>Name</div>
+				</div>
+				<div>
+					<div>Price</div>
+				</div>
+			</div>
 			{checkoutItems.length && checkoutItems.map((item) => (
-				<div key={item.id}>
+				<div key={item.id} className={"sideBarColumnHeaders"}>
 					<div>
-						<div>Name</div>
 						<div>{item.name}</div>
 					</div>
 					<div>
-						<div>Price</div>
-						<div>{item.price}</div>
+						<div>${convertToReadableDollars(item.price)}</div>
 					</div>
 				</div>
 			))}
 
 			<div>-------</div>
-			<div>Total Value: {itemTotal}</div>
+			<div>Total Value: ${convertToReadableDollars(itemTotal)}</div>
 
 		</div>
 	)
