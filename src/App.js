@@ -3,6 +3,7 @@ import {Nav} from "./components/Nav";
 import {GroceryOptions} from "./components/GroceryOptions";
 import {CheckoutSideBar} from "./components/CheckoutSideBar";
 import {useState} from "react";
+import {Button, Toast, ToastContainer} from "react-bootstrap";
 
 //TODO(miketran): Replace with API in the future.
 const GroceryPossibilities = [
@@ -23,6 +24,8 @@ const GroceryPossibilities = [
 function App() {
   // Cart hashmap <id, {count: number, name: string, price: number, id: number}>
   const [cart, changeCart] = useState(new Map());
+  const [isOfferActive, setSpecialOffer] = useState(false);
+  const [isShowingOffer, showOffer] = useState(false);
 
   const handleAddToCart = (groceryObj) => {
     const {id, name, price} = groceryObj;
@@ -35,18 +38,21 @@ function App() {
 
     if(newMapCart.has(id)){
       const cartObj = newMapCart.get(id);
+
       newMapCart.set(id, {
-        count: cartObj.count++,
-        ...defaultCartObj
+        ...defaultCartObj,
+        count: cartObj.count+1,
       })
+
+      // Show special offer after 2nd item is added.
+      showOffer(true);
 
     } else {
       newMapCart.set(id, {
-        count: 0,
+        count: 1,
         ...defaultCartObj
       })
     }
-
     changeCart(newMapCart);
   }
 
@@ -69,6 +75,10 @@ function App() {
   //   changeCart(newMapCart);
   }
 
+  const handleSpecialOffer = () => {
+    setSpecialOffer(true);
+  };
+
   return (
     <div className="App">
       <Nav/>
@@ -76,9 +86,21 @@ function App() {
         <GroceryOptions groceries={GroceryPossibilities}
                         addToCart={handleAddToCart}/>
         <CheckoutSideBar
+          specialAppleOffer={isOfferActive}
           cart={cart}
           removeFromCart={handleRemoveFromCart}/>
       </div>
+      {isShowingOffer && <ToastContainer position={'top-center'}>
+        <Toast >
+          <Toast.Header>
+            <strong className="me-auto">Special Offer</strong>
+          </Toast.Header>
+          <Toast.Body>Buy one, get one free on apples.
+            <br/>
+            <Button onClick={handleSpecialOffer}>Click here to Activate</Button>
+          </Toast.Body>
+        </Toast>
+      </ToastContainer>}
     </div>
   );
 }
