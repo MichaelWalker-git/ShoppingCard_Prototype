@@ -13,16 +13,25 @@ GUIDELINES FOR CODE
     - Requirement #2
       - The shop may decide to introduce new offers. Implement the option to activate the following if the shop chooses to do so.
   - Reasoning behind your technical choices.
-    >
+    > Hard coded dummy data for time sakes
+    > Typescript compiler wasn't working. Given time constraints, jsx and js worked fine.
+    > Reactbootstrap is a nice lightweight UI framework
+    > Using a map for lookup was maybe over-engineered given the small data set but saved time given that all the items were stored in memeory
   - Trade-offs you might have made. Anything you might do differently if you were to spend additional time on the project.
-    > 
+    > I would have done unit testing on the edge cases.
+    > I would have added better styling on the cart
+    - Remove items from cart
+    - Figure out why typescript compiler wasn't working 
+    - Storing cart in browser or redis or even database
+    - Pull images dynamically
+    - Abstract out the special offers 
   - Ideally, the code you are providing:
     - Is leveraging front-end web technologies.
       > Done
     - Uses libraries, whose technical choice you can justify.
       > React probably is unnecessary for such a small project, however, the framework allows for extensibility for future feature development.
     - Is deployed and hosted somewhere (Heroku, Amazon Web Services, Google Cloud etc.)
-      > Done
+      > Done. AWS
 
 WHAT ARE WE LOOKING FOR ?
 We are looking for, quality and solution approach over code completeness. 
