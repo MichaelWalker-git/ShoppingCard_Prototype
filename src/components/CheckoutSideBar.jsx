@@ -22,9 +22,7 @@ export const CheckoutSideBar = ({cart, specialAppleOffer}) => {
 				} else {
 						newCheckoutItems = findAndReplaceOld(newCheckoutItems, groceryItem);
 				}
-				//Calculate total
-				console.log(itemTotal, groceryItem.price)
-				changeCheckOutTotal(itemTotal+groceryItem.price);
+
 				changeCheckoutItems(newCheckoutItems);
 
 				if(specialAppleOffer){
@@ -32,16 +30,28 @@ export const CheckoutSideBar = ({cart, specialAppleOffer}) => {
 				}
 			}
 
+		//Calculate total
+		changeCheckOutTotal(calculateTotal());
+
 		}, [cart, specialAppleOffer]
 	)
+
+	const calculateTotal = () => {
+		let sum = 0;
+		checkoutItems.forEach(item => {
+			sum += (item.price * item.count);
+		})
+
+		return sum;
+	}
 
 	const discountCalc = (checkoutItems ) => {
 		const appleObj = checkoutItems.filter((item) => item.name === 'Apple');
 		if(appleObj.length){
 			const totalDiscount = (Math.floor(appleObj[0].count/2) * appleObj[0].price);
-			const newTotal = itemTotal - totalDiscount;
+			const newTotal = calculateTotal() - totalDiscount;
 			changeDiscountAmt(totalDiscount)
-			if(newTotal >  0){
+			if(newTotal > 0){
 				changeDiscountedTotal(newTotal);
 			}
 		}
@@ -92,7 +102,7 @@ export const CheckoutSideBar = ({cart, specialAppleOffer}) => {
 			))}
 
 			<div>-------</div>
-			{!specialAppleOffer && <div>Total Value: ${convertToReadableDollars(itemTotal)}</div>
+			{<div>Total Value: ${convertToReadableDollars(calculateTotal())}</div>
 			}
 			<br/><br/><br/>
 			{specialAppleOffer && <div>Discount applied
