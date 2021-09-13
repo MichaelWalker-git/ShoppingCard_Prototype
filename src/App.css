@@ -36,3 +36,41 @@
     transform: rotate(360deg);
   }
 }
+
+.groceryFlex {
+  display: flex;
+  flex-direction: row;
+  width: 80vw;
+  padding: 3rem;
+}
+
+.groceryBody {
+  height: 90vh;
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.groceryCard {
+  padding: 1rem;
+  height: 7rem;
+}
+
+.checkoutSideBar{
+  border: 1px black solid;
+  padding: 2rem;
+}
+
+.checkoutSideBarTitle {
+  background: #61dafb;
+}
+
+.sideBarColumnHeaders {
+  display: flex;
+  justify-content: space-between;
+}
+
+.underline {
+  text-decoration: underline;
+
+}
