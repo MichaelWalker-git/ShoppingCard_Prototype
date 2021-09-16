@@ -9,7 +9,6 @@ export const GroceryCard = ({product, addToCart}) => {
 	const imageDir = name === "Apple" ? apple : orange;
 
 	return (
-		<div className={"groceryCard"}>
 			<Card style={{ width: '18rem' }}>
 				<Card.Img variant="top" src={imageDir} />
 				<Card.Body>
@@ -22,7 +21,5 @@ export const GroceryCard = ({product, addToCart}) => {
 						variant="primary">Add To Cart</Button>
 				</Card.Body>
 			</Card>
-		</div>
-
 	)
 }
