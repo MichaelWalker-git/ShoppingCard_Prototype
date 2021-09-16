@@ -2,70 +2,58 @@ import './App.css';
 import {Nav} from "./components/Nav";
 import {GroceryOptions} from "./components/GroceryOptions";
 import {CheckoutSideBar} from "./components/CheckoutSideBar";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {SpecialOfferToaster} from "./components/SpecialOfferToaster";
-
-//TODO(miketran): Replace with API in the future.
-const GroceryPossibilities = [
-  {
-    id: 1,
-    name: "Apple",
-    price: 0.60,
-    description: "This is an Apple",
-  },
-  {
-    id: 2,
-    name: "Orange",
-    price: 0.25,
-    description: "This is an Orange",
-  },
-];
+import {getAllGroceries} from "./service/groceryService";
 
 function App() {
-  // Cart hashmap <id, {count: number, name: string, price: number, id: number}>
-  const [cart, changeCart] = useState(new Map());
+  const [cart, changeCart] = useState([]);
   const [isOfferActive, setSpecialOffer] = useState(false);
   const [isShowingOffer, showOffer] = useState(false);
+  const [allGroceries, updateGroceries] = useState([]);
+  //Change map to array
+
+  useEffect(() => {
+    updateGroceries(getAllGroceries());
+  }, [getAllGroceries]);
 
   const handleAddToCart = (groceryObj) => {
     const {id, name, price} = groceryObj;
-    const newMapCart = new Map([...cart]);
-    const defaultCartObj = {
-      name: name,
-      price: price,
-      id: id
+    const defaultCartObj = { id, name, price};
+    const newCart = [...cart];
+    let groceryObjIndex;
+    for (let i = 0; i < newCart.length; i++) {
+      if(newCart[i].id === id){
+        groceryObjIndex = i;
+      }
     }
-
-    if(newMapCart.has(id)){
-      const cartObj = newMapCart.get(id);
-
-      newMapCart.set(id, {
+    if(groceryObjIndex >= 0){
+      newCart[groceryObjIndex] = {
         ...defaultCartObj,
-        count: cartObj.count+1,
-      })
-
-      // Show special offer after 2nd item is added.
+        count: newCart[groceryObjIndex].count+1,
+      };
       showOffer(true);
-
     } else {
-      newMapCart.set(id, {
+      newCart.push({
         count: 1,
         ...defaultCartObj
-      })
+      });
     }
-    changeCart(newMapCart);
+    changeCart(newCart);
   }
 
-
   const handleSpecialOffer = () => {
-    setSpecialOffer(true);
+    if(!isOfferActive){
+      setSpecialOffer(true);
+      showOffer(false);
+    }
   };
 
   return (
     <div className="App">
       <Nav/>
       <div className={"groceryBody"}>
-        <GroceryOptions groceries={GroceryPossibilities}
+        <GroceryOptions groceries={allGroceries}
                         addToCart={handleAddToCart}/>
         <CheckoutSideBar
           specialAppleOffer={isOfferActive}

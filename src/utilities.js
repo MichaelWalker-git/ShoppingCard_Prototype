@@ -4,7 +4,9 @@
  * @returns {string}
  */
 export const convertToReadableDollars = (num) => {
-  return (num).toFixed(2);
+  if(Number(num) > 0){
+    return (num).toFixed(2);
+  }
 }
 
 /**
@@ -14,9 +16,11 @@ export const convertToReadableDollars = (num) => {
  */
 export const calculateTotal = (checkoutItemsArr) => {
   let sum = 0;
-  checkoutItemsArr.forEach(item => {
-    sum += (item.price * item.count);
-  })
+  if(checkoutItemsArr.length > 0 ){
+    checkoutItemsArr?.forEach(item => {
+      sum += (item.price * item.count);
+    })
+  }
 
   return sum;
 }

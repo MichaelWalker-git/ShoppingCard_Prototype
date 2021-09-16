@@ -8,13 +8,22 @@ export const TotalSummary = ({specialDiscountTotal,discountAmt, specialAppleOffe
 		<Row>
 			{<div>Total Value: ${convertToReadableDollars(calculatedTotal)}</div>
 			}
+
 		</Row>
+		<hr/>
+		<Row/>
 		<Row>
-			{specialAppleOffer && <div>Discount applied
-				<div> New Total: ${convertToReadableDollars(specialDiscountTotal)}
-					<br/>
+			{specialAppleOffer &&
+			<div>Discount applied
+				<Row>
 					<span>Saved: ${convertToReadableDollars(discountAmt)}</span>
-				</div>
+
+				</Row>
+				<hr/>
+				<Row>
+					<div> New Total: ${convertToReadableDollars(specialDiscountTotal)}
+					</div>
+				</Row>
 			</div>}
 		</Row>
 	</>);

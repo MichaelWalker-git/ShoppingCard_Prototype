@@ -12,31 +12,17 @@ export const CheckoutSideBar = ({cart, specialAppleOffer}) => {
 	const [discountAmt, changeDiscountAmt] = useState(0);
 
 	useEffect(() => {
-			const groceryList = cart[Symbol.iterator]();
-			for (const item of groceryList) {
-				const groceryItem = item[1];
-				let newCheckoutItems = [...checkoutItems];
-
-				if(!checkOutItemSet.has(groceryItem.id)){
-					checkOutItemSet.add(groceryItem.id);
-					newCheckoutItems.push(groceryItem);
-				} else {
-					// exists in our system. We want to update the count in the objects.
-						newCheckoutItems = findAndReplaceOld(newCheckoutItems, groceryItem);
-						changeCheckoutItems(newCheckoutItems);
-				}
-
-				changeCheckoutItems(newCheckoutItems);
-			}
+		changeCheckoutItems(cart);
 		if(specialAppleOffer){
-			const { discountTotal, newTotal} = discountCalc(checkoutItems);
+			const { discountTotal, newTotal} = discountCalc(cart);
 			changeDiscountAmt(discountTotal);
 			changeDiscountedTotal(newTotal);
 		}
 		//Calculate total
-		changeCheckOutTotal(calculateTotal(checkoutItems));
+		console.log(checkoutItems,"!!")
 
-		}, [cart, specialAppleOffer, calculateTotal, checkOutItemSet, checkoutItems, discountCalc]
+		changeCheckOutTotal(calculateTotal(cart));
+		}, [cart, specialAppleOffer]
 	)
 
 
@@ -61,7 +47,7 @@ export const CheckoutSideBar = ({cart, specialAppleOffer}) => {
 				<TotalSummary
 					specialDiscountTotal={specialDiscountTotal}
 					discountAmt={discountAmt}
-					specialAppleOffer={specialDiscountTotal}
+					specialAppleOffer={specialAppleOffer}
 					calculatedTotal={itemTotal}
 				/>
 			</Container>
