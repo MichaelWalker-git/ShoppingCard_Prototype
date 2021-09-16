@@ -7,6 +7,8 @@ import {SpecialOfferToaster} from "./components/SpecialOfferToaster";
 import {getAllGroceries} from "./service/groceryService";
 import {Col, Container, Row} from "react-bootstrap";
 
+export const DEFAULT_DISCOUNTED_ITEM = "Apple";
+
 function App() {
 	const [cart, changeCart] = useState([]);
 	const [isOfferActive, setSpecialOffer] = useState(false);

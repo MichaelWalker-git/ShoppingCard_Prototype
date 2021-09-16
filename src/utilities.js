@@ -1,6 +1,16 @@
 /**
+ * @typedef groceryItem {{
+ *   id: number,
+ *   name: string,
+ *   price: number,
+ *   count: number,
+ * }}
  *
- * @param num
+ */
+
+/**
+ *  Converts floated numbers to a fixed number.
+ * @param num number
  * @returns {string}
  */
 export const convertToReadableDollars = (num) => {
@@ -10,8 +20,8 @@ export const convertToReadableDollars = (num) => {
 }
 
 /**
- *
- * @param checkoutItemsArr
+ * Calculates the total amount of an array of groceryItems
+ * @param checkoutItemsArr groceryItem[]
  * @returns {number}
  */
 export const calculateTotal = (checkoutItemsArr) => {
@@ -26,12 +36,13 @@ export const calculateTotal = (checkoutItemsArr) => {
 }
 
 /**
- *
- * @param checkoutItemsArr
+ * Returns an object containing the discount amount and the new total bill.
+ * @param checkoutItemsArr groceryItem[]
+ * @param discountedItem String
  * @returns {{discountTotal: number, newTotal: number}}
  */
-export const discountCalc = (checkoutItemsArr) => {
-  const appleObj = checkoutItemsArr.filter((item) => item.name === 'Apple');
+export const discountCalc = (checkoutItemsArr, discountedItem) => {
+  const appleObj = checkoutItemsArr.filter((item) => item.name === discountedItem);
 
   if(appleObj?.length){
     const discountTotal = (Math.floor(appleObj[0].count/2) * appleObj[0].price);
@@ -42,22 +53,4 @@ export const discountCalc = (checkoutItemsArr) => {
       }
     }
   }
-}
-
-/**
- *
- * @param checkoutItems
- * @param groceryItem
- * @returns {*[]}
- */
-export const findAndReplaceOld = (checkoutItems, groceryItem) => {
-  const copy = [...checkoutItems];
-
-  for (let i = 0; i < copy.length; i++) {
-    if(copy[i].name === groceryItem.name && groceryItem.count >= copy[i].count){
-      copy[i] = groceryItem;
-      return copy;
-    }
-  }
-  return copy;
 }
