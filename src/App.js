@@ -51,6 +51,10 @@ function App() {
 		}
 	};
 
+	const closeSpecialOffer = () => {
+		showOffer(false);
+	}
+
 	return (
 		<div className="App">
 			<Nav/>
@@ -65,7 +69,8 @@ function App() {
 						cart={cart}/>
 				</Col>
 			</Container>
-			{isShowingOffer && <SpecialOfferToaster handleSpecialOffer={handleSpecialOffer}/>}
+			{isShowingOffer && <SpecialOfferToaster handleSpecialOffer={handleSpecialOffer}
+																							closeOffer={closeSpecialOffer}/>}
 		</div>
 	);
 }

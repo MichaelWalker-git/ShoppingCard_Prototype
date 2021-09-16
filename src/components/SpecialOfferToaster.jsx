@@ -1,10 +1,10 @@
 import React from 'react'
 import {Button, Container, Row, Toast, ToastContainer} from "react-bootstrap";
 
-export const SpecialOfferToaster = ({handleSpecialOffer}) => {
+export const SpecialOfferToaster = ({handleSpecialOffer, closeOffer}) => {
 	return (
 		<ToastContainer position={'top-center'}>
-			<Toast >
+			<Toast onClose={() => closeOffer()}>
 				<Toast.Header>
 					<strong className="me-auto">Special Offer</strong>
 				</Toast.Header>

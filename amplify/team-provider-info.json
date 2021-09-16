@@ -19,5 +19,26 @@
                 }
             }
         }
+    },
+    "docusign": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-docusign-docusign-130546-authRole",
+            "UnauthRoleArn": "arn:aws:iam::039885961427:role/amplify-docusign-docusign-130546-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::039885961427:role/amplify-docusign-docusign-130546-authRole",
+            "Region": "eu-west-1",
+            "DeploymentBucketName": "amplify-docusign-docusign-130546-deployment",
+            "UnauthRoleName": "amplify-docusign-docusign-130546-unauthRole",
+            "StackName": "amplify-docusign-docusign-130546",
+            "StackId": "arn:aws:cloudformation:eu-west-1:039885961427:stack/amplify-docusign-docusign-130546/b9de2480-1718-11ec-bf97-0a52e761d595",
+            "AmplifyAppId": "d2reekcdlsvo0q"
+        },
+        "categories": {
+            "hosting": {
+                "amplifyhosting": {
+                    "appId": "d2reekcdlsvo0q",
+                    "type": "manual"
+                }
+            }
+        }
     }
 }
