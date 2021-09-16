@@ -3,7 +3,7 @@ import {Nav} from "./components/Nav";
 import {GroceryOptions} from "./components/GroceryOptions";
 import {CheckoutSideBar} from "./components/CheckoutSideBar";
 import {useState} from "react";
-import {Button, Toast, ToastContainer} from "react-bootstrap";
+import {SpecialOfferToaster} from "./components/SpecialOfferToaster";
 
 //TODO(miketran): Replace with API in the future.
 const GroceryPossibilities = [
@@ -56,24 +56,6 @@ function App() {
     changeCart(newMapCart);
   }
 
-  const handleRemoveFromCart = (groceryObjId) => {
-  //   const newMapCart = new Map([...cart]);
-  //   // const defaultCartObj = {
-  //   //   name: name,
-  //   //   price: price,
-  //   //   id: id
-  //   // }
-  //   //
-  //   //   const cartObj = newMapCart.get(id);
-  //   //   newMapCart.set(id, {
-  //   //     ...defaultCartObj
-  //
-  //   //     count: cartObj.count--,
-  //   //   })
-  //
-  //
-  //   changeCart(newMapCart);
-  }
 
   const handleSpecialOffer = () => {
     setSpecialOffer(true);
@@ -87,20 +69,9 @@ function App() {
                         addToCart={handleAddToCart}/>
         <CheckoutSideBar
           specialAppleOffer={isOfferActive}
-          cart={cart}
-          removeFromCart={handleRemoveFromCart}/>
+          cart={cart}/>
       </div>
-      {isShowingOffer && <ToastContainer position={'top-center'}>
-        <Toast >
-          <Toast.Header>
-            <strong className="me-auto">Special Offer</strong>
-          </Toast.Header>
-          <Toast.Body>Buy one, get one free on apples.
-            <br/>
-            <Button onClick={handleSpecialOffer}>Click here to Activate</Button>
-          </Toast.Body>
-        </Toast>
-      </ToastContainer>}
+      {isShowingOffer && <SpecialOfferToaster handleSpecialOffer={handleSpecialOffer}/>}
     </div>
   );
 }

@@ -1,5 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {convertToReadableDollars} from "../utilities";
+import {calculateTotal, convertToReadableDollars, discountCalc, findAndReplaceOld} from "../utilities";
+import {Container, Row} from "react-bootstrap";
+import {SideBarHeader} from "./CheckoutSideBarHeader";
+import {TotalSummary} from "./CheckoutSideBarTotal";
 
 export const CheckoutSideBar = ({cart, specialAppleOffer}) => {
 	const [checkoutItems, changeCheckoutItems] = useState([]);
@@ -10,8 +13,6 @@ export const CheckoutSideBar = ({cart, specialAppleOffer}) => {
 
 	useEffect(() => {
 			const groceryList = cart[Symbol.iterator]();
-
-
 			for (const item of groceryList) {
 				const groceryItem = item[1];
 				let newCheckoutItems = [...checkoutItems];
@@ -20,97 +21,50 @@ export const CheckoutSideBar = ({cart, specialAppleOffer}) => {
 					checkOutItemSet.add(groceryItem.id);
 					newCheckoutItems.push(groceryItem);
 				} else {
+					// exists in our system. We want to update the count in the objects.
 						newCheckoutItems = findAndReplaceOld(newCheckoutItems, groceryItem);
+						changeCheckoutItems(newCheckoutItems);
 				}
 
 				changeCheckoutItems(newCheckoutItems);
-
-				if(specialAppleOffer){
-					discountCalc(newCheckoutItems);
-				}
 			}
-
+		if(specialAppleOffer){
+			const { discountTotal, newTotal} = discountCalc(checkoutItems);
+			changeDiscountAmt(discountTotal);
+			changeDiscountedTotal(newTotal);
+		}
 		//Calculate total
-		changeCheckOutTotal(calculateTotal());
+		changeCheckOutTotal(calculateTotal(checkoutItems));
 
-		}, [cart, specialAppleOffer]
+		}, [cart, specialAppleOffer, calculateTotal, checkOutItemSet, checkoutItems, discountCalc]
 	)
 
-	const calculateTotal = () => {
-		let sum = 0;
-		checkoutItems.forEach(item => {
-			sum += (item.price * item.count);
-		})
-
-		return sum;
-	}
-
-	const discountCalc = (checkoutItems ) => {
-		const appleObj = checkoutItems.filter((item) => item.name === 'Apple');
-		if(appleObj.length){
-			const totalDiscount = (Math.floor(appleObj[0].count/2) * appleObj[0].price);
-			const newTotal = calculateTotal() - totalDiscount;
-			changeDiscountAmt(totalDiscount)
-			if(newTotal > 0){
-				changeDiscountedTotal(newTotal);
-			}
-		}
-
-	}
-
-	//Use a for loop instead of map for early exit
-	const findAndReplaceOld = (checkoutItems, groceryItem) => {
-		for (let i = 0; i < checkoutItems.length; i++) {
-			if(checkoutItems[i].name === groceryItem.name){
-				checkoutItems[i] = groceryItem;
-				return checkoutItems;
-			}
-		}
-	}
-
-
-	//TODO(miketran): Not part of initial requirements
-	const removeFromCart = (id) => {
-		const newGrocerySet = new Set(...checkOutItemSet);
-		newGrocerySet.delete(id);
-		changeSet(newGrocerySet);
-		// Neeed to check if there is zero items left to do this op
-	}
 
 	return (
 		<div className={"checkoutSideBar"}>
-			<div className={"checkoutSideBarTitle"}>
-				<h1>Checkout</h1>
-			</div>
-			<div  className={"sideBarColumnHeaders underline"}>
-				<div>
-					<div>Name</div>
-				</div>
-				<div>
-					<div>Price</div>
-				</div>
-			</div>
-			{checkoutItems.length && checkoutItems.map((item) => (
-				<div key={item.id} className={"sideBarColumnHeaders"}>
-					<div>
-						<div>{item.name} x {item.count}</div>
-					</div>
-					<div>
-						<div>${convertToReadableDollars(item.price)}</div>
-					</div>
-				</div>
-			))}
-
-			<div>-------</div>
-			{<div>Total Value: ${convertToReadableDollars(calculateTotal())}</div>
-			}
-			<br/><br/><br/>
-			{specialAppleOffer && <div>Discount applied
-				<div> New Total: ${convertToReadableDollars(specialDiscountTotal)}
-					<br/>
-					<span>Saved: ${convertToReadableDollars(discountAmt)}</span>
-				</div>
-			</div>}
+			<Container>
+				<Row>
+					<SideBarHeader/>
+				</Row>
+				<Row>
+					{checkoutItems?.length > 0 && checkoutItems.map((item) => (
+						<div key={item.id} className={"sideBarColumnHeaders"}>
+							<div>
+								<div>{item.name} x {item.count}</div>
+							</div>
+							<div>
+								<div>${convertToReadableDollars(item.price)}</div>
+							</div>
+						</div>
+					))}
+				</Row>
+				<TotalSummary
+					specialDiscountTotal={specialDiscountTotal}
+					discountAmt={discountAmt}
+					specialAppleOffer={specialDiscountTotal}
+					calculatedTotal={itemTotal}
+				/>
+			</Container>
 		</div>
 	)
 }
