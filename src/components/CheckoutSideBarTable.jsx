@@ -13,7 +13,7 @@ export const CheckoutSideBarTable = ({checkoutItems}) => {
 			</thead>
 			<tbody>
 			{checkoutItems?.length === 0 && <tr>
-				No items
+				<td>No items</td>
 			</tr>}
 
 			{checkoutItems?.length > 0 && checkoutItems.map((item) => (

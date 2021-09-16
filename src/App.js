@@ -5,7 +5,7 @@ import {CheckoutSideBar} from "./components/CheckoutSideBar";
 import {useEffect, useState} from "react";
 import {SpecialOfferToaster} from "./components/SpecialOfferToaster";
 import {getAllGroceries} from "./service/groceryService";
-import {Col, Container, Row} from "react-bootstrap";
+import {Col, Container} from "react-bootstrap";
 
 export const DEFAULT_DISCOUNTED_ITEM = "Apple";
 
@@ -14,7 +14,6 @@ function App() {
 	const [isOfferActive, setSpecialOffer] = useState(false);
 	const [isShowingOffer, showOffer] = useState(false);
 	const [allGroceries, updateGroceries] = useState([]);
-	//Change map to array
 
 	useEffect(() => {
 		updateGroceries(getAllGroceries());
