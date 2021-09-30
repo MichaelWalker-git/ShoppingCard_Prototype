@@ -3,7 +3,7 @@
 ### Description
 GUIDELINES FOR CODE
 - Include a link to the hosted repository (e.g. Github, Gitlab etc.). We would not review archives or single files.
-  > https://dev.d2reekcdlsvo0q.amplifyapp.com
+  > https://docusign.d2reekcdlsvo0q.amplifyapp.com/
 
 - The repo should include a `README` file that includes:
   - A high-level explanation about what the code is doing.
