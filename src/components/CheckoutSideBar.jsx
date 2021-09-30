@@ -24,7 +24,7 @@ export const CheckoutSideBar = ({cart, specialAppleOffer}) => {
 	)
 
 	return (
-		<div>
+		<>
 			<Row>
 				<SideBarHeader/>
 			</Row>
@@ -39,6 +39,6 @@ export const CheckoutSideBar = ({cart, specialAppleOffer}) => {
 				specialAppleOffer={specialAppleOffer}
 				calculatedTotal={itemTotal}
 			/>
-		</div>
+		</>
 	)
 }

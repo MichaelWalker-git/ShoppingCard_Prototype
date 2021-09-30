@@ -34,7 +34,9 @@ function App() {
 				...defaultCartObj,
 				count: newCart[groceryObjIndex].count + 1,
 			};
-			showOffer(true);
+			if(!isOfferActive){
+				showOffer(true);
+			}
 		} else {
 			newCart.push({
 				count: 1,

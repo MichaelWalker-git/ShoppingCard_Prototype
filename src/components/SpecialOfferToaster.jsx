@@ -3,7 +3,7 @@ import {Button, Container, Row, Toast, ToastContainer} from "react-bootstrap";
 
 export const SpecialOfferToaster = ({handleSpecialOffer, closeOffer}) => {
 	return (
-		<ToastContainer position={'top-center'}>
+		<ToastContainer position={'bottom-center'}>
 			<Toast onClose={() => closeOffer()}>
 				<Toast.Header>
 					<strong className="me-auto">Special Offer</strong>
