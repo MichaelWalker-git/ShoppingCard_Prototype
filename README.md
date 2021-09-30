@@ -1,5 +1,8 @@
 # Docusign Frontend Code Exercise
 
+![Screen-Recording-2021-09-30-at-4 58 01-AM](https://user-images.githubusercontent.com/11032490/135451484-3c4cccd2-735c-4f36-89c5-ca7c0ca8017c.gif)
+
+
 ### Description
 GUIDELINES FOR CODE
 - Include a link to the hosted repository (e.g. Github, Gitlab etc.). We would not review archives or single files.
